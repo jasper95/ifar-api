@@ -192,6 +192,16 @@ module.exports = {
           default: '[]'
         },
         {
+          column_name: 'stakeholders',
+          type: 'jsonb',
+          default: '[]'
+        },
+        {
+          column_name: 'impacts',
+          type: 'jsonb',
+          default: '[]'
+        },
+        {
           column_name: 'current_treatments',
           type: 'jsonb',
           default: '[]'
