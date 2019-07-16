@@ -139,65 +139,65 @@ module.exports = {
       table_name: 'risk',
       columns: [
         {
-          name: 'name',
+          column_name: 'name',
           type: 'string',
           required: true
         },
         {
-          name: 'definition',
+          column_name: 'definition',
           type: 'string',
           required: true
         },
         {
-          name: 'business_unit',
+          column_name: 'business_unit',
           type: 'string',
           required: true
         },
         {
-          name: 'classification',
+          column_name: 'classification',
           type: 'string',
           required: true
         },
         {
-          name: 'residual_change_direction',
+          column_name: 'residual_change_direction',
           type: 'string',
           default: 'initial'
         },
         {
-          name: 'type',
-          type: 'string',
+          column_name: 'impact',
+          type: 'jsonb',
           required: true
         },
         {
-          name: 'frequency',
-          type: 'string',
+          column_name: 'likelihood',
+          type: 'jsonb',
           required: true
         },
         {
-          name: 'inherent_value',
+          column_name: 'inherent_rating',
           type: 'integer',
           required: true
         },
         {
-          name: 'residual_value',
+          column_name: 'residual_rating',
           type: 'integer'
         },
         {
-          name: 'target_value',
+          column_name: 'target_rating',
           type: 'integer'
         },
         {
-          name: 'causes',
+          column_name: 'causes',
           type: 'jsonb',
           default: '[]'
         },
         {
-          name: 'current_treatment',
+          column_name: 'current_treatments',
           type: 'jsonb',
           default: '[]'
         },
         {
-          name: 'future_treatment',
+          column_name: 'future_treatments',
           type: 'jsonb',
           default: '[]'
         }
