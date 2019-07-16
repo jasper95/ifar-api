@@ -136,6 +136,26 @@ module.exports = {
       ]
     },
     {
+      table_name: 'classification',
+      columns: [
+        {
+          column_name: 'name',
+          type: 'string',
+          required: true
+        }
+      ]
+    },
+    {
+      table_name: 'business_unit',
+      columns: [
+        {
+          column_name: 'name',
+          type: 'string',
+          required: true
+        }
+      ]
+    },
+    {
       table_name: 'risk',
       columns: [
         {
@@ -149,14 +169,24 @@ module.exports = {
           required: true
         },
         {
-          column_name: 'business_unit',
-          type: 'string',
-          required: true
+          column_name: 'business_unit_id',
+          type: 'uuid',
+          foreign_key: true,
+          required: true,
+          reference_table: 'business_unit',
+          reference_column: 'id',
+          on_update: 'CASCADE',
+          on_delete: 'RESTRICT'
         },
         {
-          column_name: 'classification',
-          type: 'string',
-          required: true
+          column_name: 'classification_id',
+          type: 'uuid',
+          foreign_key: true,
+          required: true,
+          reference_table: 'classification',
+          reference_column: 'id',
+          on_update: 'CASCADE',
+          on_delete: 'RESTRICT'
         },
         {
           column_name: 'residual_change_direction',
