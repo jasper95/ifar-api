@@ -37,7 +37,7 @@ function matchRoutes(routes, req) {
 
 export default async function authMiddleware(req, res, next) {
   // const DB = serviceLocator.get('DB')
-  // req.authenticated = true
+  req.authenticated = true
   // const { authorization } = req.headers
   // if (matchRoutes(public_routes, req)) {
   //   return next()
