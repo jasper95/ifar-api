@@ -152,6 +152,11 @@ module.exports = {
           column_name: 'name',
           type: 'string',
           required: true
+        },
+        {
+          column_name: 'order',
+          type: 'integer',
+          required: true
         }
       ]
     },
