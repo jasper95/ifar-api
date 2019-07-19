@@ -1,5 +1,5 @@
 {
-  "name": "jobhunt-api",
+  "name": "ifar-api",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -22,8 +22,8 @@
     "dotenv": "^6.0.0",
     "fs-extra": "^7.0.1",
     "jsonwebtoken": "^8.3.0",
-    "knex-wrapper": "^1.1.32",
-    "lodash": "^4.17.11",
+    "knex-wrapper": "^1.1.33",
+    "lodash": "^4.17.15",
     "mime-types": "^2.1.24",
     "morgan": "^1.9.1",
     "nconf": "^0.10.0",
