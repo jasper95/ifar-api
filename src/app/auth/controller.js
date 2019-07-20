@@ -17,7 +17,7 @@ export default class UserController {
 
   async getSession({ session }) {
     const { user_id, token } = session
-    let [user] = await this.DB.filter('system_user', { id: user_id })
+    let [user] = await this.DB.filter('user', { id: user_id })
     user = await this.Model.auth.getUserData(user)
     return {
       ...user,
@@ -27,7 +27,7 @@ export default class UserController {
 
   async signup({ params }) {
     // validate email
-    const [user_exists] = await this.Model.base.validateUnique('system_user', { email: params.email })
+    const [user_exists] = await this.Model.base.validateUnique('user', { email: params.email })
     if (user_exists) {
       throw { success: false, message: 'Email already taken.' }
     }
@@ -44,7 +44,7 @@ export default class UserController {
       params.slug = generateSlug(params.first_name, params.last_name)
     }
 
-    const user = await this.DB.insert('system_user', params)
+    const user = await this.DB.insert('user', params)
     const salt = generateSalt()
     this.DB.insert('user_auth',
       { user_id: user.id, password: generateHash(params.password, salt), salt })
@@ -68,7 +68,7 @@ export default class UserController {
 
   async login({ params }) {
     const { email, password } = params
-    let [user] = await this.DB.filter('system_user', { email })
+    let [user] = await this.DB.filter('user', { email })
     if (!user) {
       throw { success: false, message: 'Email does not exists' }
     }
@@ -91,7 +91,7 @@ export default class UserController {
 
   async forgotPassword({ params }) {
     const { email } = params
-    const user = await this.DB.find('system_user', email, [], 'email')
+    const user = await this.DB.find('user', email, [], 'email')
     if (!user) {
       throw { success: false, message: 'Email does not exists' }
     }

@@ -22,23 +22,12 @@ module.exports = {
           default: false
         },
         {
-          column_name: 'resume',
-          type: 'string',
-          default: ''
-        },
-        {
           column_name: 'avatar',
           type: 'string',
           default: ''
         },
         {
           column_name: 'first_name',
-          type: 'string',
-          // required: true,
-          default: ''
-        },
-        {
-          column_name: 'contact_number',
           type: 'string',
           // required: true,
           default: ''
@@ -106,31 +95,6 @@ module.exports = {
           column_name: 'device_type',
           type: 'string',
           default: 'Web',
-          required: true
-        }
-      ]
-    },
-    {
-      table_name: 'notification',
-      columns: [
-        {
-          column_name: 'user_id',
-          type: 'uuid',
-          foreign_key: true,
-          required: true,
-          reference_table: 'user',
-          reference_column: 'id',
-          on_update: 'CASCADE',
-          on_delete: 'RESTRICT'
-        },
-        {
-          column_name: 'body',
-          type: 'jsonb',
-          default: '{}'
-        },
-        {
-          column_name: 'status',
-          type: 'string',
           required: true
         }
       ]
@@ -245,6 +209,31 @@ module.exports = {
           column_name: 'future_treatments',
           type: 'jsonb',
           default: '[]'
+        }
+      ]
+    },
+    {
+      table_name: 'notification',
+      columns: [
+        {
+          column_name: 'user_id',
+          type: 'uuid',
+          foreign_key: true,
+          required: true,
+          reference_table: 'user',
+          reference_column: 'id',
+          on_update: 'CASCADE',
+          on_delete: 'RESTRICT'
+        },
+        {
+          column_name: 'body',
+          type: 'jsonb',
+          default: '{}'
+        },
+        {
+          column_name: 'status',
+          type: 'string',
+          required: true
         }
       ]
     }
