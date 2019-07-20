@@ -26,7 +26,8 @@ const basic_auth_routes = {
   ],
   PUT: [
     '/user',
-    '/reset-password'
+    '/reset-password',
+    '/verify-account'
   ],
   DELETE: []
 }
