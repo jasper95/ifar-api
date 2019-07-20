@@ -53,11 +53,11 @@ export default class UserController {
     const html = await formatHTML('signup', { confirm_link: `${process.env.PORTAL_LINK}/confirm?user_id=${user.id}`, name })
     await sendgrid.send({
       from: {
-        name: 'Internlink',
+        name: 'RAMONS',
         email: process.env.EMAIL_FROM
       },
       to: user.email,
-      subject: 'Verify Internlink Account',
+      subject: 'Verify RAMONS Account',
       html
     })
 
@@ -106,11 +106,11 @@ export default class UserController {
     const sendgrid = this.serviceLocator.get('sendgrid')
     await sendgrid.send({
       from: {
-        name: 'Internlink',
+        name: 'RAMONS',
         email: process.env.EMAIL_FROM
       },
       to: email,
-      subject: 'Reset Internlink Account Password',
+      subject: 'Reset RAMONS Account Password',
       html
     })
     return { success: true }
