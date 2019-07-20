@@ -9,7 +9,7 @@ class AuthModel {
 
   async authenticateUser(user) {
     const session = await this.DB.insert('user_session', { user_id: user.id, status: 'Online', device_type: 'Web' })
-    return jwt.sign({
+    return this.generateToken({
       ...session,
       hasura_claims: {
         'x-hasura-allowed-roles': ['admin'],
@@ -17,8 +17,6 @@ class AuthModel {
         'x-hasura-user-id': user.id,
         'x-hasura-session-id': session.id
       }
-    }, process.env.AUTH_SECRET, {
-      expiresIn: process.env.AUTH_VALIDITY
     })
   }
 
@@ -36,6 +34,10 @@ class AuthModel {
       .first()
       .then(e => e.count)
     return user
+  }
+
+  generateToken(payload) {
+    return jwt.sign(payload, process.env.AUTH_SECRET, { expiresIn: process.env.AUTH_VALIDITY })
   }
 }
 

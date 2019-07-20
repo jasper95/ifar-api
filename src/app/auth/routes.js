@@ -27,6 +27,10 @@ const routes = {
     {
       url: '/reset-password',
       handler: 'resetPassword'
+    },
+    {
+      url: '/verify-account',
+      handler: 'verifyAccount'
     }
   ],
   del: []

@@ -4,6 +4,7 @@ import {
   formatHTML,
   generateSlug
 } from 'utils'
+import jwt from 'jsonwebtoken'
 
 export default class UserController {
   constructor({
@@ -50,7 +51,11 @@ export default class UserController {
       { user_id: user.id, password: generateHash(params.password, salt), salt })
     const sendgrid = this.serviceLocator.get('sendgrid')
     const name = params.role === 'ADMIN' ? params.company_name : params.first_name
-    const html = await formatHTML('signup', { confirm_link: `${process.env.PORTAL_LINK}/confirm?user_id=${user.id}`, name })
+    const token = await this.Model.auth.generateToken({
+      type: 'signup',
+      user_id: user.id
+    })
+    const html = await formatHTML('signup', { confirm_link: `${process.env.PORTAL_LINK}/verify?token=${token}`, name })
     await sendgrid.send({
       from: {
         name: 'RAMONS',
@@ -129,5 +134,24 @@ export default class UserController {
 
   async logout({ session }) {
     return this.DB.deleteById('user_session', { id: session.id })
+  }
+
+  async verifyAccount({ params }) {
+    const { token } = params
+    const { type, user_id } = jwt.verify(token, process.env.AUTH_SECRET)
+    if (type !== 'signup' || !user_id) {
+      throw { success: false, message: 'Invalid Verification Link' }
+    }
+    const user = await this.DB.find('user', user_id)
+    if (!user) {
+      throw { success: false, message: 'User does not exists' }
+    } else if (user.verified) {
+      throw { success: false, message: 'Verification Link already used' }
+    }
+    await this.DB.updateById('user', {
+      id: user_id,
+      verified: true
+    })
+    return { success: true }
   }
 }
