@@ -44,18 +44,18 @@ class AuthModel {
     const {
       payload, insert_db = true, type, has_expiry = true
     } = params
+    if (insert_db) {
+      const result = await this.DB.insert('token', {
+        type,
+        expiry: has_expiry ? dayjs().add(process.env.TOKEN_EXPIRY_DAYS, 'day').toISOString() : null
+      })
+      payload.id = result.id
+    }
     const token = jwt.sign(
       payload,
       process.env.AUTH_SECRET,
       has_expiry ? { expiresIn: `${process.env.TOKEN_EXPIRY_DAYS}d` } : {}
     )
-    if (insert_db) {
-      await this.DB.insert('token', {
-        value: token,
-        type,
-        expiry: has_expiry ? dayjs().add(process.env.TOKEN_EXPIRY_DAYS, 'day').toISOString() : null
-      })
-    }
     return token
   }
 }
