@@ -132,20 +132,26 @@ export default class UserController {
 
   async resetPassword({ params }) {
     const { token, password } = params
-    const { user_id } = jwt.verify(token, process.env.AUTH_SECRET)
+    const { user_id, id } = jwt.verify(token, process.env.AUTH_SECRET)
     const salt = generateSalt()
-    await this.DB.updateByFilter(
-      'user_auth',
-      { user_id, password: generateHash(password, salt), salt },
-      { user_id }
-    )
+    await Promise.all([
+      this.DB.updateByFilter(
+        'user_auth',
+        { user_id, password: generateHash(password, salt), salt },
+        { user_id }
+      ),
+      this.DB.updateById('token', { id, used: true })
+    ])
     return { success: true }
   }
 
   async verifyAccount({ params }) {
     const { token } = params
-    const { user_id } = jwt.verify(token, process.env.AUTH_SECRET)
-    await this.DB.updateById('user', { id: user_id, verified: true })
+    const { user_id, id } = jwt.verify(token, process.env.AUTH_SECRET)
+    await Promise.all([
+      this.DB.updateById('user', { id: user_id, verified: true }),
+      this.DB.updateById('token', { id, used: true })
+    ])
     return { success: true }
   }
 
