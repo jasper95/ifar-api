@@ -236,6 +236,32 @@ module.exports = {
           required: true
         }
       ]
+    },
+    {
+      table_name: 'token',
+      columns: [
+        {
+          column_name: 'value',
+          type: 'string',
+          index: true,
+          required: true
+        },
+        {
+          column_name: 'type',
+          type: 'string',
+          required: true
+        },
+        {
+          column_name: 'expiry',
+          type: 'timestamp',
+          type_params: [{ useTz: true }]
+        },
+        {
+          column_name: 'used',
+          type: 'boolean',
+          default: false
+        }
+      ]
     }
   ]
 }

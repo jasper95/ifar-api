@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import dayjs from 'dayjs'
 
 class AuthModel {
   constructor({ DB, knex, Model }) {
@@ -10,13 +11,16 @@ class AuthModel {
   async authenticateUser(user) {
     const session = await this.DB.insert('user_session', { user_id: user.id, status: 'Online', device_type: 'Web' })
     return this.generateToken({
-      ...session,
-      hasura_claims: {
-        'x-hasura-allowed-roles': ['admin'],
-        'x-hasura-default-role': 'admin',
-        'x-hasura-user-id': user.id,
-        'x-hasura-session-id': session.id
-      }
+      payload: {
+        ...session,
+        hasura_claims: {
+          'x-hasura-allowed-roles': ['admin'],
+          'x-hasura-default-role': 'admin',
+          'x-hasura-user-id': user.id,
+          'x-hasura-session-id': session.id
+        }
+      },
+      insert_db: false
     })
   }
 
@@ -36,8 +40,23 @@ class AuthModel {
     return user
   }
 
-  generateToken(payload) {
-    return jwt.sign(payload, process.env.AUTH_SECRET, { expiresIn: process.env.AUTH_VALIDITY })
+  async generateToken(params) {
+    const {
+      payload, insert_db = true, type, has_expiry = true
+    } = params
+    const token = jwt.sign(
+      payload,
+      process.env.AUTH_SECRET,
+      has_expiry ? { expiresIn: `${process.env.TOKEN_EXPIRY_DAYS}d` } : {}
+    )
+    if (insert_db) {
+      await this.DB.insert('token', {
+        value: token,
+        type,
+        expiry: has_expiry ? dayjs().add(process.env.TOKEN_EXPIRY_DAYS, 'day').toISOString() : null
+      })
+    }
+    return token
   }
 }
 

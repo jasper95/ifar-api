@@ -50,10 +50,13 @@ export default class UserController {
     this.DB.insert('user_auth',
       { user_id: user.id, password: generateHash(params.password, salt), salt })
     const sendgrid = this.serviceLocator.get('sendgrid')
-    const name = params.role === 'ADMIN' ? params.company_name : params.first_name
+    const { first_name: name } = params
     const token = await this.Model.auth.generateToken({
+      payload: {
+        user_id: user.id
+      },
       type: 'signup',
-      user_id: user.id
+      has_expiry: false
     })
     const html = await formatHTML('signup', { confirm_link: `${process.env.PORTAL_LINK}/verify?token=${token}`, name })
     await sendgrid.send({
@@ -104,9 +107,15 @@ export default class UserController {
       const { name } = await this.DB.find('company', user.company_id)
       user.first_name = name
     }
+    const token = await this.Model.auth.generateToken({
+      payload: {
+        user_id: user.id
+      },
+      type: 'reset-password'
+    })
     const html = await formatHTML(
       'reset-password',
-      { reset_link: `${process.env.PORTAL_LINK}/reset-password?user_id=${user.id}`, name: user.first_name }
+      { reset_link: `${process.env.PORTAL_LINK}/reset-password?token=${token}`, name: user.first_name }
     )
     const sendgrid = this.serviceLocator.get('sendgrid')
     await sendgrid.send({
@@ -122,7 +131,8 @@ export default class UserController {
   }
 
   async resetPassword({ params }) {
-    const { user_id, password } = params
+    const { token, password } = params
+    const { user_id } = jwt.verify(token, process.env.AUTH_SECRET)
     const salt = generateSalt()
     await this.DB.updateByFilter(
       'user_auth',
@@ -132,26 +142,14 @@ export default class UserController {
     return { success: true }
   }
 
-  async logout({ session }) {
-    return this.DB.deleteById('user_session', { id: session.id })
-  }
-
   async verifyAccount({ params }) {
     const { token } = params
-    const { type, user_id } = jwt.verify(token, process.env.AUTH_SECRET)
-    if (type !== 'signup' || !user_id) {
-      throw { success: false, message: 'Invalid Verification Link' }
-    }
-    const user = await this.DB.find('user', user_id)
-    if (!user) {
-      throw { success: false, message: 'User does not exists' }
-    } else if (user.verified) {
-      throw { success: false, message: 'Verification Link already used' }
-    }
-    await this.DB.updateById('user', {
-      id: user_id,
-      verified: true
-    })
+    const { user_id } = jwt.verify(token, process.env.AUTH_SECRET)
+    await this.DB.updateById('user', { id: user_id, verified: true })
     return { success: true }
+  }
+
+  async logout({ session }) {
+    return this.DB.deleteById('user_session', { id: session.id })
   }
 }
