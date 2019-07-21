@@ -241,12 +241,6 @@ module.exports = {
       table_name: 'token',
       columns: [
         {
-          column_name: 'value',
-          type: 'string',
-          index: true,
-          required: true
-        },
-        {
           column_name: 'type',
           type: 'string',
           required: true
