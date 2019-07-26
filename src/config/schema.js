@@ -157,32 +157,54 @@ module.exports = {
           on_update: 'CASCADE',
           on_delete: 'RESTRICT'
         },
+        // http://putco.de/MTIxMjI.matlab
         {
-          column_name: 'residual_change_direction',
+          column_name: 'basis',
           type: 'string',
-          default: 'initial'
-        },
-        {
-          column_name: 'impact',
-          type: 'jsonb',
           required: true
         },
         {
-          column_name: 'likelihood',
-          type: 'jsonb',
-          required: true
+          column_name: 'previous_details',
+          type: 'jsonb'
         },
         {
-          column_name: 'inherent_rating',
-          type: 'integer',
-          required: true
+          column_name: 'impact_details',
+          type: 'jsonb'
         },
         {
-          column_name: 'residual_rating',
+          column_name: 'target_impact_driver',
+          type: 'string'
+        },
+        {
+          column_name: 'target_likelihood',
           type: 'integer'
         },
         {
           column_name: 'target_rating',
+          type: 'integer'
+        },
+        {
+          column_name: 'inherent_impact_driver',
+          type: 'string'
+        },
+        {
+          column_name: 'inherent_likelihood',
+          type: 'integer'
+        },
+        {
+          column_name: 'inherent_rating',
+          type: 'integer'
+        },
+        {
+          column_name: 'residual_impact_driver',
+          type: 'string'
+        },
+        {
+          column_name: 'residual_likelihood',
+          type: 'integer'
+        },
+        {
+          column_name: 'residual_rating',
           type: 'integer'
         },
         {
