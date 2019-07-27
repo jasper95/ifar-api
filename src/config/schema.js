@@ -177,7 +177,8 @@ module.exports = {
         },
         {
           column_name: 'target_likelihood',
-          type: 'integer'
+          type: 'integer',
+          default: 1
         },
         {
           column_name: 'target_rating',
@@ -201,7 +202,8 @@ module.exports = {
         },
         {
           column_name: 'residual_likelihood',
-          type: 'integer'
+          type: 'integer',
+          default: 1
         },
         {
           column_name: 'residual_rating',
