@@ -21,8 +21,9 @@ export default class BaseController {
     return record
   }
 
-  async createNode({ params }) {
+  async createNode({ params, user }) {
     const { node } = params
+    params.user_id = user.id
     return this.DB.insert(node, params)
   }
 
