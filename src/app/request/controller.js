@@ -1,4 +1,4 @@
-export default class BaseController {
+export default class RequestController {
   constructor({ DB, knex, Model }) {
     this.DB = DB
     this.knex = knex
@@ -11,7 +11,7 @@ export default class BaseController {
     if (!request) { throw { success: false, message: 'Request does not exists' } }
     const { risk_id, type } = request
     if (type === 'DELETE_RISK') {
-      await this.DB.deleteById('risk', risk_id)
+      await this.DB.deleteById('risk', { id: risk_id })
     } else if (type === 'DONE_TREATMENT') {
       const risk = await this.DB.find('risk', risk_id)
       const { current_treatments, future_treatments } = risk
