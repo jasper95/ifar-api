@@ -314,6 +314,36 @@ module.exports = {
           type: 'jsonb'
         }
       ]
+    },
+    {
+      table_name: 'comment',
+      columns: [
+        {
+          column_name: 'message',
+          type: 'string',
+          required: true
+        },
+        {
+          column_name: 'user_id',
+          type: 'uuid',
+          foreign_key: true,
+          required: true,
+          reference_table: 'user',
+          reference_column: 'id',
+          on_update: 'CASCADE',
+          on_delete: 'RESTRICT'
+        },
+        {
+          column_name: 'risk_id',
+          type: 'uuid',
+          foreign_key: true,
+          required: true,
+          reference_table: 'risk',
+          reference_column: 'id',
+          on_update: 'CASCADE',
+          on_delete: 'RESTRICT'
+        }
+      ]
     }
   ]
 }
