@@ -307,7 +307,7 @@ module.exports = {
           reference_table: 'risk',
           reference_column: 'id',
           on_update: 'CASCADE',
-          on_delete: 'RESTRICT'
+          on_delete: 'CASCADE'
         },
         {
           column_name: 'treatment_details',
@@ -341,7 +341,7 @@ module.exports = {
           reference_table: 'risk',
           reference_column: 'id',
           on_update: 'CASCADE',
-          on_delete: 'RESTRICT'
+          on_delete: 'CASCADE'
         }
       ]
     }
