@@ -250,14 +250,23 @@ module.exports = {
           on_delete: 'RESTRICT'
         },
         {
+          column_name: 'risk_id',
+          type: 'uuid',
+          foreign_key: true,
+          reference_table: 'risk',
+          reference_column: 'id',
+          on_update: 'CASCADE',
+          on_delete: 'CASCADE'
+        },
+        {
           column_name: 'body',
           type: 'jsonb',
           default: '{}'
         },
         {
-          column_name: 'status',
+          column_name: 'role',
           type: 'string',
-          required: true
+          default: 'ADMIN'
         }
       ]
     },
@@ -322,6 +331,10 @@ module.exports = {
           column_name: 'message',
           type: 'string',
           required: true
+        },
+        {
+          column_name: 'body',
+          type: 'jsonb'
         },
         {
           column_name: 'user_id',
