@@ -11,7 +11,7 @@ export default class CommentController {
       ...params,
       user_id: session.user_id
     })
-    const users = await this.DB.filter('user', { role: 'ADMIN' }, ['id'])
+    const users = await this.DB.filter('user', { role: 'USER' }, ['id'])
     await this.DB.insert('notification', {
       user_id: session.user_id,
       receivers: users.map(e => e.id),
@@ -22,7 +22,7 @@ export default class CommentController {
     })
     const tagged_users = Object.values(body.entityMap)
       .filter(e => e.type === 'mention')
-      .map(e => e.mention.id)
+      .map(e => e.data.mention.id)
     if (tagged_users.length) {
       await this.DB.insert('notification', {
         user_id: session.user_id,
