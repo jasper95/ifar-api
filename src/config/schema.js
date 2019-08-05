@@ -259,14 +259,14 @@ module.exports = {
           on_delete: 'CASCADE'
         },
         {
-          column_name: 'body',
+          column_name: 'details',
           type: 'jsonb',
           default: '{}'
         },
         {
-          column_name: 'role',
-          type: 'string',
-          default: 'ADMIN'
+          column_name: 'receivers',
+          type: 'jsonb',
+          default: '[]'
         }
       ]
     },
