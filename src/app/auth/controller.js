@@ -76,7 +76,7 @@ export default class UserController {
 
   async login({ params }) {
     const { email, password } = params
-    let [user] = await this.DB.filter('user', { email })
+    const [user] = await this.DB.filter('user', { email })
     if (!user) {
       throw { success: false, message: 'Email does not exists' }
     }
@@ -90,7 +90,6 @@ export default class UserController {
       throw { success: false, message: 'Incorrect Password' }
     }
     const token = await this.Model.auth.authenticateUser(user)
-    user = await this.Model.auth.getUserData(user)
     return {
       ...user,
       token

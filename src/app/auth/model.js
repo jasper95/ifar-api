@@ -24,22 +24,6 @@ class AuthModel {
     })
   }
 
-  async getUserData(user) {
-    if (user.role === 'ADMIN' && user.company_id) {
-      const company = await this.DB.find('company', user.company_id)
-      if (company) {
-        user.company = company
-      }
-    }
-    const { id } = user
-    user.unread_notifications = await this.knex('notification')
-      .where({ user_id: id, status: 'unread' })
-      .count()
-      .first()
-      .then(e => e.count)
-    return user
-  }
-
   async generateToken(params) {
     const {
       payload, insert_db = true, type, has_expiry = true
