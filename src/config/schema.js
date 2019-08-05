@@ -328,13 +328,9 @@ module.exports = {
       table_name: 'comment',
       columns: [
         {
-          column_name: 'message',
-          type: 'string',
-          required: true
-        },
-        {
           column_name: 'body',
-          type: 'jsonb'
+          type: 'jsonb',
+          default: '{}'
         },
         {
           column_name: 'user_id',
