@@ -7,7 +7,10 @@ export default class CommentController {
 
   async createComment({ params, session }) {
     const { body } = params
-    const response = await this.DB.insert('comment', params)
+    const response = await this.DB.insert('comment', {
+      ...params,
+      user_id: session.user_id
+    })
     const users = await this.DB.filter('user', { role: 'ADMIN' }, ['id'])
     await this.DB.insert('notification', {
       user_id: session.user_id,
