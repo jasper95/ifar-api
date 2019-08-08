@@ -138,6 +138,10 @@ module.exports = {
           required: true
         },
         {
+          column_name: 'residual_vulnerability',
+          type: 'string'
+        },
+        {
           column_name: 'business_unit_id',
           type: 'uuid',
           foreign_key: true,
