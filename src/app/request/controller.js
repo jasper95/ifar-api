@@ -9,9 +9,9 @@ export default class RequestController {
     const { id } = params
     const request = await this.DB.find('request', id)
     if (!request) { throw { success: false, message: 'Request does not exists' } }
-    const { risk_id, type } = request
+    const { risk_id, type, risk_details } = request
+    await this.DB.deleteById('request', params)
     if (type === 'DELETE_RISK') {
-      await this.DB.deleteById('request', params)
       await this.DB.deleteById('risk', { id: risk_id })
     } else if (type === 'DONE_TREATMENT_RISK') {
       const risk = await this.DB.find('risk', risk_id)
@@ -28,6 +28,8 @@ export default class RequestController {
           future_treatments: future_treatments.filter(e => e.id !== treatment_id)
         })
       await this.DB.deleteById('request', params)
+    } else if (type === 'EDIT_RISK') {
+      await this.DB.updateById('risk', risk_details)
     }
     return { success: true }
   }
