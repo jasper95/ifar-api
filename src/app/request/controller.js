@@ -13,7 +13,7 @@ export default class RequestController {
     if (type === 'DELETE_RISK') {
       await this.DB.deleteById('request', params)
       await this.DB.deleteById('risk', { id: risk_id })
-    } else if (type === 'DONE_TREATMENT') {
+    } else if (type === 'DONE_TREATMENT_RISK') {
       const risk = await this.DB.find('risk', risk_id)
       const { current_treatments, future_treatments } = risk
       const { id: treatment_id } = request.treatment_details

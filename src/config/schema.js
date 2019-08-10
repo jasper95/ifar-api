@@ -325,6 +325,10 @@ module.exports = {
         {
           column_name: 'treatment_details',
           type: 'jsonb'
+        },
+        {
+          column_name: 'risk_details',
+          type: 'jsonb'
         }
       ]
     },
