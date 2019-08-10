@@ -1,6 +1,21 @@
 module.exports = {
   tables: [
     {
+      table_name: 'business_unit',
+      columns: [
+        {
+          column_name: 'name',
+          type: 'string',
+          required: true
+        },
+        {
+          column_name: 'order',
+          type: 'integer',
+          required: true
+        }
+      ]
+    },
+    {
       table_name: 'user',
       columns: [
         {
@@ -8,6 +23,15 @@ module.exports = {
           type: 'string',
           required: true,
           index: true
+        },
+        {
+          column_name: 'business_unit_id',
+          type: 'uuid',
+          foreign_key: true,
+          reference_table: 'business_unit',
+          reference_column: 'id',
+          on_update: 'CASCADE',
+          on_delete: 'RESTRICT'
         },
         {
           column_name: 'slug',
@@ -105,21 +129,6 @@ module.exports = {
         {
           column_name: 'name',
           type: 'string',
-          required: true
-        }
-      ]
-    },
-    {
-      table_name: 'business_unit',
-      columns: [
-        {
-          column_name: 'name',
-          type: 'string',
-          required: true
-        },
-        {
-          column_name: 'order',
-          type: 'integer',
           required: true
         }
       ]

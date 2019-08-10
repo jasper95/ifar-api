@@ -11,7 +11,7 @@ export default class CommentController {
       ...params,
       user_id: session.user_id
     })
-    const users = await this.DB.filter('user', { role: 'USER' }, ['id'])
+    const users = await this.DB.filter('user', { role: 'ADMIN' }, ['id'])
     await this.DB.insert('notification', {
       user_id: session.user_id,
       receivers: users.map(e => e.id),
