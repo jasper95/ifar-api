@@ -15,7 +15,7 @@ export default class CommentController {
     const users = await this.knex('users')
       .select('id')
       .where({ business_unit: risk.business_unit })
-      .andWhereIn('role', ['USER', 'UNIT_MANAGER'])
+      .whereIn('role', ['USER', 'UNIT_MANAGER'])
       .orWhere({ role: 'ADMIN' })
 
     await this.DB.insert('notification', {
