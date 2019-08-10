@@ -332,6 +332,16 @@ module.exports = {
           on_delete: 'CASCADE'
         },
         {
+          column_name: 'business_unit_id',
+          type: 'uuid',
+          foreign_key: true,
+          required: true,
+          reference_table: 'business_unit',
+          reference_column: 'id',
+          on_update: 'CASCADE',
+          on_delete: 'CASCADE'
+        },
+        {
           column_name: 'treatment_details',
           type: 'jsonb'
         },
