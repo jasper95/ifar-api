@@ -20,7 +20,7 @@ export default class CommentController {
 
     await this.DB.insert('notification', {
       user_id: session.user_id,
-      receivers: users.map(e => e.id),
+      receivers: [1],
       risk_id: params.risk_id,
       details: {
         action: 'comment'
