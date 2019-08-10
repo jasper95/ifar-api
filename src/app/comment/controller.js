@@ -11,7 +11,7 @@ export default class CommentController {
       ...params,
       user_id: session.user_id
     })
-    const risk = await this.DB.findById('risk', params.risk_id)
+    const risk = await this.DB.find('risk', params.risk_id)
     const users = await this.knex('users')
       .select('id')
       .where({ business_unit: risk.business_unit })
