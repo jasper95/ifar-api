@@ -22,6 +22,7 @@ export default class CommentController {
       user_id: session.user_id,
       receivers: users.map(e => e.id),
       risk_id: params.risk_id,
+      business_unit_id: risk.business_unit_id,
       details: {
         action: 'comment'
       }
@@ -34,6 +35,7 @@ export default class CommentController {
         user_id: session.user_id,
         receivers: tagged_users,
         risk_id: params.risk_id,
+        business_unit_id: risk.business_unit_id,
         details: {
           action: 'tag'
         }
