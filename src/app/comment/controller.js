@@ -14,7 +14,7 @@ export default class CommentController {
     const risk = await this.DB.find('risk', params.risk_id)
     const users = await this.knex('users')
       .select('id')
-      .where({ business_unit: risk.business_unit })
+      .where({ business_unit: risk.business_unit_id })
       .whereIn('role', ['USER', 'UNIT_MANAGER'])
       .orWhere({ role: 'ADMIN' })
 
