@@ -12,7 +12,7 @@ export default class CommentController {
       user_id: session.user_id
     })
     const risk = await this.DB.find('risk', params.risk_id)
-    const users = await this.knex('users')
+    const users = await this.knex('user')
       .select('id')
       .where({ business_unit: risk.business_unit_id })
       .whereIn('role', ['USER', 'UNIT_MANAGER'])
@@ -20,7 +20,7 @@ export default class CommentController {
 
     await this.DB.insert('notification', {
       user_id: session.user_id,
-      receivers: [1],
+      receivers: users.map(e => e.id),
       risk_id: params.risk_id,
       details: {
         action: 'comment'
