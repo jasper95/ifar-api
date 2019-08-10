@@ -11,7 +11,13 @@ export default class CommentController {
       ...params,
       user_id: session.user_id
     })
-    const users = await this.DB.filter('user', { role: 'ADMIN' }, ['id'])
+    const risk = await this.DB.findById('risk', params.risk_id)
+    const users = await this.knex('users')
+      .select('id')
+      .where({ business_unit: risk.business_unit })
+      .andWhereIn('role', ['USER', 'UNIT_MANAGER'])
+      .orWhere({ role: 'ADMIN' })
+
     await this.DB.insert('notification', {
       user_id: session.user_id,
       receivers: users.map(e => e.id),
