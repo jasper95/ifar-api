@@ -1,3 +1,5 @@
+import difference from 'lodash/difference'
+
 export default class CommentController {
   constructor({ DB, knex, Model }) {
     this.DB = DB
@@ -18,18 +20,20 @@ export default class CommentController {
       .whereIn('role', ['USER', 'UNIT_MANAGER'])
       .orWhere({ role: 'ADMIN' })
 
+    const tagged_users = Object.values(body.entityMap)
+      .filter(e => e.type === 'mention')
+      .map(e => e.data.mention.id)
+
     await this.DB.insert('notification', {
       user_id: session.user_id,
-      receivers: users.map(e => e.id),
+      receivers: difference(users.map(e => e.id), tagged_users),
       risk_id: params.risk_id,
       business_unit_id: risk.business_unit_id,
       details: {
         action: 'comment'
       }
     })
-    const tagged_users = Object.values(body.entityMap)
-      .filter(e => e.type === 'mention')
-      .map(e => e.data.mention.id)
+
     if (tagged_users.length) {
       await this.DB.insert('notification', {
         user_id: session.user_id,
