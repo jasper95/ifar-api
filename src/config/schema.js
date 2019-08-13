@@ -246,6 +246,11 @@ module.exports = {
           column_name: 'future_treatments',
           type: 'jsonb',
           default: '[]'
+        },
+        {
+          column_name: 'recent_changes',
+          type: 'jsonb',
+          default: '{}'
         }
       ]
     },
