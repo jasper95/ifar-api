@@ -33,7 +33,11 @@ export default class BaseController {
   }
 
   async deleteNode({ params }) {
-    const { node } = params
+    const { node, id } = params
+    if (id === 'bulk') {
+      const { ids } = params
+      return this.DB.deleteByFilter(node, q => q.whereIn('id', ids))
+    }
     return this.DB.deleteById(node, params)
   }
 }
