@@ -65,8 +65,28 @@ module.exports = {
         {
           column_name: 'role',
           type: 'string',
-          // required: true,
+          required: true,
           default: ''
+        },
+        {
+          column_name: 'srmp_role',
+          type: 'string',
+          default: ''
+        },
+        {
+          column_name: 'ormp_role',
+          type: 'string',
+          default: ''
+        },
+        {
+          column_name: 'srmp_business_units',
+          type: 'jsonb',
+          default: '[]'
+        },
+        {
+          column_name: 'orpm_business_units',
+          type: 'jsonb',
+          default: '[]'
         }
       ]
     },

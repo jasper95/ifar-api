@@ -7,6 +7,10 @@ const routes = {
   ],
   post: [
     {
+      url: '/user',
+      handler: 'createUser'
+    },
+    {
       url: '/signup',
       handler: 'signup'
     },

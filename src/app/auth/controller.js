@@ -74,6 +74,37 @@ export default class UserController {
     }
   }
 
+  async createUser({ params }) {
+    const { email } = params
+    const [user_exists] = await this.Model.base.validateUnique('user', { email })
+    if (user_exists) {
+      throw { success: false, message: 'Email already taken.' }
+    }
+    const user = await this.DB.insert('user', params)
+    const sendgrid = this.serviceLocator.get('sendgrid')
+    const { first_name: name } = params
+    const token = await this.Model.auth.generateToken({
+      payload: {
+        user_id: user.id
+      },
+      type: 'invitation',
+      has_expiry: false
+    })
+    const html = await formatHTML('invitation', { confirm_link: `${process.env.PORTAL_LINK}/verify?token=${token}`, name })
+    await sendgrid.send({
+      from: {
+        name: 'RAMONS',
+        email: process.env.EMAIL_FROM
+      },
+      to: user.email,
+      subject: 'Verify RAMONS Account',
+      html
+    })
+    return {
+      success: true
+    }
+  }
+
   async login({ params }) {
     const { email, password } = params
     const [user] = await this.DB.filter('user', { email })
