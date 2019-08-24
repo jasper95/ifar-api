@@ -34,13 +34,6 @@ module.exports = {
           on_delete: 'RESTRICT'
         },
         {
-          column_name: 'slug',
-          type: 'string',
-          required: true,
-          unique: true,
-          index: true
-        },
-        {
           column_name: 'verified',
           type: 'boolean',
           default: false
