@@ -94,7 +94,7 @@ module.exports = {
           reference_table: 'user',
           reference_column: 'id',
           on_update: 'CASCADE',
-          on_delete: 'RESTRICT'
+          on_delete: 'CASCADE'
         },
         {
           column_name: 'password',
@@ -120,7 +120,7 @@ module.exports = {
           reference_table: 'user',
           reference_column: 'id',
           on_update: 'CASCADE',
-          on_delete: 'RESTRICT'
+          on_delete: 'CASCADE'
         },
         {
           column_name: 'status',
@@ -278,7 +278,7 @@ module.exports = {
           reference_table: 'user',
           reference_column: 'id',
           on_update: 'CASCADE',
-          on_delete: 'RESTRICT'
+          on_delete: 'CASCADE'
         },
         {
           column_name: 'risk_id',
@@ -346,7 +346,7 @@ module.exports = {
           reference_table: 'user',
           reference_column: 'id',
           on_update: 'CASCADE',
-          on_delete: 'RESTRICT'
+          on_delete: 'CASCADE'
         },
         {
           column_name: 'risk_id',
@@ -394,7 +394,7 @@ module.exports = {
           reference_table: 'user',
           reference_column: 'id',
           on_update: 'CASCADE',
-          on_delete: 'RESTRICT'
+          on_delete: 'CASCADE'
         },
         {
           column_name: 'risk_id',
