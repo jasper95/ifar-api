@@ -87,10 +87,10 @@ export default class UserController {
       payload: {
         user_id: user.id
       },
-      type: 'invitation',
+      type: 'activate',
       has_expiry: false
     })
-    const html = await formatHTML('invitation', { confirm_link: `${process.env.PORTAL_LINK}/verify?token=${token}`, name })
+    const html = await formatHTML('activate', { confirm_link: `${process.env.PORTAL_LINK}/activate?token=${token}`, name })
     await sendgrid.send({
       from: {
         name: 'RAMONS',
@@ -178,7 +178,9 @@ export default class UserController {
   async verifyAccount({ params }) {
     const { token } = params
     const { user_id, id } = jwt.verify(token, process.env.AUTH_SECRET)
+    const salt = generateSalt()
     await Promise.all([
+      this.DB.insert('user_auth', { user_id, password: generateHash(params.password, salt), salt }),
       this.DB.updateById('user', { id: user_id, verified: true }),
       this.DB.updateById('token', { id, used: true })
     ])
