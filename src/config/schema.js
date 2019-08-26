@@ -160,6 +160,11 @@ module.exports = {
           required: true
         },
         {
+          column_name: 'type',
+          type: 'string',
+          default: 'srmp'
+        },
+        {
           column_name: 'residual_vulnerability',
           type: 'string'
         },
