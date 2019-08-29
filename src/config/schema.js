@@ -392,6 +392,11 @@ module.exports = {
           default: '{}'
         },
         {
+          column_name: 'type',
+          type: 'string',
+          default: 'risk'
+        },
+        {
           column_name: 'user_id',
           type: 'uuid',
           foreign_key: true,
