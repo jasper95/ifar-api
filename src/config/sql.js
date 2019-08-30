@@ -7,6 +7,13 @@ export const views = [
       left join classification c
         on r.classification_id = c.id
     `
+  },
+  {
+    name: 'user_dashboard',
+    query: `
+      select "user".*, concat_ws(' ', "user".first_name, "user".last_name) as full_name
+      from "user"
+    `
   }
 ]
 export const functions = [
