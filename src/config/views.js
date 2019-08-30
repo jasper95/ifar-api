@@ -4,7 +4,8 @@ export default [
     query: `
       select
         r.*,
-        EXISTS(select * from request where risk_id = r.id and type = 'treatment_request') as has_treatment_request
+        EXISTS(select * from request where risk_id = r.id and type = 'treatment_request') as has_treatment_request,
+        c.name as classification_name
           from risk r
             left join classification c
               on r.classification_id = c.id
