@@ -12,9 +12,10 @@ export const views = [
 export const functions = [
   {
     param_signature: 'search_users(search text)',
+    return_signature: 'setof "user"',
     query: `
-      select *
-      from user
+      select "user".*
+      from "user"
       where 'first_name' ilike ('%' || search || '%') OR 'last_name' ilike ('%' || search || '%')
     `
   }

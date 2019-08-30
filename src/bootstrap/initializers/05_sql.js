@@ -27,7 +27,7 @@ export default async function initializeViews(self) {
 function getViewQuery({ name, query }) {
   return `create or replace view ${name} as ${query}`
 }
-function getFunctionQuery({ return_signature = 'setof record', query, param_signature }) {
+function getFunctionQuery({ return_signature, query, param_signature }) {
   return `
     create or replace function ${param_signature}
     returns ${return_signature} AS $$
