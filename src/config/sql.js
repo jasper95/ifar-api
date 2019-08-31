@@ -23,7 +23,7 @@ export const functions = [
     query: `
       select "user".*
       from "user"
-      where 'first_name' ilike ('%' || search || '%') OR 'last_name' ilike ('%' || search || '%')
+      where "first_name" ilike ('%' || search || '%') OR "last_name" ilike ('%' || search || '%')
     `
   }
 ]
