@@ -2,7 +2,7 @@ export const views = [
   {
     name: 'risk_dashboard',
     query: `
-      select r.*, EXISTS(select * from request where risk_id = r.id and type = 'treatment_request') as has_treatment_request, c.name as classification_name
+      select r.*, EXISTS(select * from request where risk_id = r.id and type = 'DONE_TREATMENT_RISK') as has_treatment_request, c.name as classification_name
       from risk r
       left join classification c
         on r.classification_id = c.id
