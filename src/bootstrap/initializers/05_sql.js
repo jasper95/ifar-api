@@ -32,6 +32,6 @@ function getFunctionQuery({ return_signature, query, param_signature }) {
     create or replace function ${param_signature}
     returns ${return_signature} AS $$
       ${query}
-    $$ LANGUAGE sql;
+    $$ LANGUAGE sql STABLE;
   `
 }
