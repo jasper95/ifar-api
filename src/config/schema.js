@@ -384,6 +384,21 @@ module.exports = {
       ]
     },
     {
+      table_name: 'project',
+      columns: [
+        {
+          column_name: 'name',
+          type: 'string',
+          required: true
+        },
+        {
+          column_name: 'operation_id',
+          type: 'uuid',
+          required: true
+        }
+      ]
+    },
+    {
       table_name: 'comment',
       columns: [
         {
