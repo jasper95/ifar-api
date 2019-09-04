@@ -14,6 +14,17 @@ export const views = [
       select "user".*, concat_ws(' ', "user".first_name, "user".last_name) as full_name
       from "user"
     `
+  },
+  {
+    name: 'business_unit_risk',
+    query: `
+      SELECT b.*, count(r.business_unit_id) as risk_count
+      from business_unit b
+      left join risk r
+      on (r.business_unit_id = b.id)
+      group by
+          b.id
+    `
   }
 ]
 export const functions = [
