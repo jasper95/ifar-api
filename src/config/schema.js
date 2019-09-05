@@ -179,6 +179,14 @@ module.exports = {
           on_delete: 'RESTRICT'
         },
         {
+          column_name: 'operation_id',
+          type: 'uuid'
+        },
+        {
+          column_name: 'project_id',
+          type: 'uuid'
+        },
+        {
           column_name: 'classification_id',
           type: 'uuid',
           foreign_key: true,
