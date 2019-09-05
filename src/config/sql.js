@@ -31,7 +31,7 @@ export const views = [
     query: `
         SELECT b.*, count(r.business_unit_id) as risk_count
         from business_unit b
-        left join (select * from risk rr where rr."type" = 'srmp') r
+        left join (select * from risk rr where rr."type" = 'ormp') r
           on (r.business_unit_id = b.id)
         group by
           b.id
