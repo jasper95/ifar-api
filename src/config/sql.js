@@ -16,13 +16,35 @@ export const views = [
     `
   },
   {
-    name: 'business_unit_risk',
+    name: 'business_unit_srmp',
     query: `
-      SELECT b.*, count(r.business_unit_id) as risk_count
-      from business_unit b
-      left join risk r
-      on (r.business_unit_id = b.id)
-      group by
+        SELECT b.*, count(r.business_unit_id) as risk_count
+        from business_unit b
+        left join (select * from risk rr where rr."type" = 'srmp') r
+          on (r.business_unit_id = b.id)
+        group by
+          b.id
+    `
+  },
+  {
+    name: 'business_unit_ormp',
+    query: `
+        SELECT b.*, count(r.business_unit_id) as risk_count
+        from business_unit b
+        left join (select * from risk rr where rr."type" = 'srmp') r
+          on (r.business_unit_id = b.id)
+        group by
+          b.id
+    `
+  },
+  {
+    name: 'business_unit_prmp',
+    query: `
+        SELECT b.*, count(r.business_unit_id) as risk_count
+        from business_unit b
+        left join (select * from risk rr where rr."type" = 'prmp') r
+          on (r.business_unit_id = b.id)
+        group by
           b.id
     `
   }
