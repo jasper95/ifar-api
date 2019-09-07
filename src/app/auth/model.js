@@ -33,7 +33,11 @@ class AuthModel {
         type,
         expiry: has_expiry ? dayjs().add(process.env.TOKEN_EXPIRY_DAYS, 'day').toISOString() : null
       })
-      payload.id = result.id
+      payload.hasura_claims = {
+        'x-hasura-allowed-roles': ['user'],
+        'x-hasura-default-role': 'user',
+        'x-hasura-token-id': result.id
+      }
     }
     const token = jwt.sign(
       payload,
