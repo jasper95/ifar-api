@@ -105,7 +105,7 @@ export default class UserController {
     }
   }
 
-  async login({ params }) {
+  async login({ params }, res) {
     const { email, password } = params
     const [user] = await this.DB.filter('user', { email })
     if (!user) {
@@ -121,6 +121,7 @@ export default class UserController {
       throw { success: false, message: 'Incorrect Password' }
     }
     const token = await this.Model.auth.authenticateUser(user)
+    res.setHeader('Set-Cookie', `token=${token}; HttpOnly`)
     return {
       ...user,
       token
@@ -187,7 +188,8 @@ export default class UserController {
     return { success: true }
   }
 
-  async logout({ session }) {
+  async logout({ session }, res) {
+    res.removeHeader('token');
     return this.DB.deleteById('user_session', { id: session.id })
   }
 }
