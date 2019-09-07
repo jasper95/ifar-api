@@ -1,3 +1,6 @@
+import omit from 'lodash/omit'
+import pick from 'lodash/pick'
+
 export default class RequestController {
   constructor({ DB, knex, Model }) {
     this.DB = DB
@@ -29,7 +32,19 @@ export default class RequestController {
         })
       await this.DB.deleteById('request', params)
     } else if (type === 'EDIT_INHERENT_RISK') {
-      await this.DB.updateById('risk', risk_details)
+      const risk = await this.DB.find('risk', risk_id)
+      const new_data = omit(risk_details,
+        'future_treatments', 'current_treatments', 'target_impact_driver',
+        'target_rating', 'target_likelihood', 'residual_impact_driver', 'residual_rating', 'residual_likelihood')
+      const overrides = ['recent_changes', 'impact_details', 'previous_details']
+        .reduce((acc, key) => {
+          acc[key] = {
+            ...risk[key],
+            ...pick(new_data[key], 'inherent')
+          }
+          return acc
+        }, {})
+      await this.DB.updateById('risk', { ...new_data, ...overrides })
     }
     return { success: true }
   }
