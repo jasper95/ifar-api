@@ -14,8 +14,8 @@ class AuthModel {
       payload: {
         ...session,
         hasura_claims: {
-          'x-hasura-allowed-roles': ['admin'],
-          'x-hasura-default-role': 'admin',
+          'x-hasura-allowed-roles': ['user'],
+          'x-hasura-default-role': 'user',
           'x-hasura-user-id': user.id,
           'x-hasura-session-id': session.id
         }
