@@ -47,6 +47,17 @@ export const views = [
         group by
           b.id
     `
+  },
+  {
+    name: 'project_risks',
+    query: `
+      SELECT p.*, count(r.project_id) as risk_count
+      from project p
+      left join risk r
+        on (r.project_id = p.id)
+      group by
+        p.id
+    `
   }
 ]
 export const functions = [
