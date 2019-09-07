@@ -28,7 +28,7 @@ export default class RequestController {
           future_treatments: future_treatments.filter(e => e.id !== treatment_id)
         })
       await this.DB.deleteById('request', params)
-    } else if (type === 'EDIT_RISK') {
+    } else if (['EDIT_INHERENT_RISK', 'EDIT_RESIDUAL_RISK'].includes(e.type)) {
       await this.DB.updateById('risk', risk_details)
     }
     return { success: true }
