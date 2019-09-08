@@ -49,7 +49,7 @@ export const views = [
     `
   },
   {
-    name: 'project_risks',
+    name: 'project_risk',
     query: `
       SELECT p.*, count(r.project_id) as risk_count
       from project p
