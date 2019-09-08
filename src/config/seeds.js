@@ -67,8 +67,8 @@ module.exports = [
         business_unit_id: null,
         srmp_role: '',
         ormp_role: '',
-        srmp_business_units: '["871637c4-5510-4500-8e78-984fce5001ff", "2184c63d-0f4f-4d68-aa76-4816a7e24b63"]',
-        orpm_business_units: '[]'
+        srmp_business_units: ['871637c4-5510-4500-8e78-984fce5001ff', '2184c63d-0f4f-4d68-aa76-4816a7e24b63'],
+        orpm_business_units: []
       }
     ]
   },
