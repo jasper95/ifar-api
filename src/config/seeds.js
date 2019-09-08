@@ -80,8 +80,8 @@ module.exports = [
         created_date: '2019-08-25T14:30:08Z',
         updated_date: '2019-08-25T14:30:08Z',
         user_id: '4cf57f7b-f029-48fe-ba6a-96535d8d5fd7',
-        password: '1b0c01c2e6c68618decfcefc6de99e6b0bc9598fafff2198e637123777189f2cde96b8907b25937ebf1d500c77eddcf2cd703cc7b4fd05b1605e7a53b96d3f84',
-        salt: '5b584ca7114d1da4'
+        password: '640f0dff3f9828ffe4441de0c0edfb8ca61b69a998dc6c0d22d7dbc3e8b3df8547acd23d28729dc7282f041da1df9a7dd723236d6715ed537d638e09ca4e25ab',
+        salt: 'f5137d35bf001df3'
       }
     ]
   }
