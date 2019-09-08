@@ -133,10 +133,6 @@ export default class UserController {
     if (!user) {
       throw { success: false, message: 'Email does not exists' }
     }
-    if (user.role === 'ADMIN') {
-      const { name } = await this.DB.find('company', user.company_id)
-      user.first_name = name
-    }
     const token = await this.Model.auth.generateToken({
       payload: {
         user_id: user.id
