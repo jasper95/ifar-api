@@ -25,15 +25,6 @@ module.exports = {
           index: true
         },
         {
-          column_name: 'business_unit_id',
-          type: 'uuid',
-          foreign_key: true,
-          reference_table: 'business_unit',
-          reference_column: 'id',
-          on_update: 'CASCADE',
-          on_delete: 'RESTRICT'
-        },
-        {
           column_name: 'verified',
           type: 'boolean',
           default: false
@@ -176,7 +167,7 @@ module.exports = {
           reference_table: 'business_unit',
           reference_column: 'id',
           on_update: 'CASCADE',
-          on_delete: 'RESTRICT'
+          on_delete: 'CASCADE'
         },
         {
           column_name: 'operation_id',
@@ -194,7 +185,7 @@ module.exports = {
           reference_table: 'classification',
           reference_column: 'id',
           on_update: 'CASCADE',
-          on_delete: 'RESTRICT'
+          on_delete: 'CASCADE'
         },
         // http://putco.de/MTIxMjI.matlab
         {

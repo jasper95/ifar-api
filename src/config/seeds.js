@@ -50,5 +50,39 @@ module.exports = [
       name: 'Legal or Compliance',
       id: '3ee4a7e0-c500-4378-a3d5-bba012e0ebb5'
     }]
+  },
+  {
+    table_name: 'user',
+    data: [
+      {
+        id: '4cf57f7b-f029-48fe-ba6a-96535d8d5fd7',
+        created_date: '2019-08-25T14:29:17Z',
+        updated_date: '2019-09-08T03:43:12Z',
+        email: 'ramons@mailinator.com',
+        verified: true,
+        avatar: '',
+        first_name: 'Ramon',
+        last_name: 'Aboitiz',
+        role: 'ADMIN',
+        business_unit_id: null,
+        srmp_role: '',
+        ormp_role: '',
+        srmp_business_units: '["871637c4-5510-4500-8e78-984fce5001ff", "2184c63d-0f4f-4d68-aa76-4816a7e24b63"]',
+        orpm_business_units: '[]'
+      }
+    ]
+  },
+  {
+    table_name: 'user_auth',
+    data: [
+      {
+        id: '3cb92377-4150-4144-ad1b-7557a8b3517a',
+        created_date: '2019-08-25T14:30:08Z',
+        updated_date: '2019-08-25T14:30:08Z',
+        user_id: '4cf57f7b-f029-48fe-ba6a-96535d8d5fd7',
+        password: '1b0c01c2e6c68618decfcefc6de99e6b0bc9598fafff2198e637123777189f2cde96b8907b25937ebf1d500c77eddcf2cd703cc7b4fd05b1605e7a53b96d3f84',
+        salt: '5b584ca7114d1da4'
+      }
+    ]
   }
 ]
