@@ -63,12 +63,22 @@ module.exports = {
           default: ''
         },
         {
+          column_name: 'prmp',
+          type: 'string',
+          default: ''
+        },
+        {
           column_name: 'srmp_business_units',
           type: 'jsonb',
           default: '[]'
         },
         {
           column_name: 'orpm_business_units',
+          type: 'jsonb',
+          default: '[]'
+        },
+        {
+          column_name: 'prpm_business_units',
           type: 'jsonb',
           default: '[]'
         }
