@@ -78,7 +78,7 @@ module.exports = {
           default: '[]'
         },
         {
-          column_name: 'prpm_business_units',
+          column_name: 'prmp_business_units',
           type: 'jsonb',
           default: '[]'
         }
