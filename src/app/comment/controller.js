@@ -14,11 +14,20 @@ export default class CommentController {
       user_id: session.user_id
     })
     const risk = await this.DB.find('risk', params.risk_id)
-    const users = await this.knex('user')
-      .select('id')
-      .where({ business_unit_id: risk.business_unit_id })
-      .whereIn('role', ['USER', 'UNIT_MANAGER'])
+    const { type: risk_type } = risk
+    let users = await this.knex('user')
+      .select('id', 'srmp_business_units', 'ormp_business_units', 'prmp_business_units', 'role')
+      .where({ [`${risk_type}_role`]: 'TEAM_LEADER' })
       .orWhere({ role: 'ADMIN' })
+      .orWhere({ id: risk.user_id })
+
+    // TODO: transfer to sql query filter
+    users = users.filter((e) => {
+      if (e.role !== 'ADMIN') {
+        return e[`${risk_type}_business_units`].includes(risk.business_unit_id)
+      }
+      return true
+    })
 
     const tagged_users = Object.values(body.entityMap)
       .filter(e => e.type === 'mention')
