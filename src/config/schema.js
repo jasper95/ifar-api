@@ -73,7 +73,7 @@ module.exports = {
           default: '[]'
         },
         {
-          column_name: 'orpm_business_units',
+          column_name: 'ormp_business_units',
           type: 'jsonb',
           default: '[]'
         },
