@@ -63,7 +63,7 @@ module.exports = {
           default: ''
         },
         {
-          column_name: 'prmp',
+          column_name: 'prmp_role',
           type: 'string',
           default: ''
         },
