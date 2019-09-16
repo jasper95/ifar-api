@@ -85,8 +85,8 @@ export default class RequestController {
           current_treatments: current_treatments.filter(e => e.id !== treatment_details.id),
           future_treatments: [
             ...future_treatments,
-            treatment_details
-          ]
+            !future_treatments.map(e => e.id).includes(treatment_details.id) && treatment_details
+          ].filter(Boolean)
         })
     }
     return this.DB.deleteById('request', params)
