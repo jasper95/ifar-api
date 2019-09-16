@@ -18,17 +18,20 @@ export default class RequestController {
       await this.DB.deleteById('risk', { id: risk_id })
     } else if (type === 'DONE_TREATMENT_RISK') {
       const risk = await this.DB.find('risk', risk_id)
-      const { current_treatments, future_treatments } = risk
+      const { current_treatments } = risk
       const { id: treatment_id } = request.treatment_details
-      const new_treatment = future_treatments.find(e => e.id === treatment_id)
       await this.DB.updateById('risk',
         {
           id: risk.id,
-          current_treatments: [
-            ...current_treatments,
-            new_treatment && { ...new_treatment, rerate: true }
-          ].filter(Boolean),
-          future_treatments: future_treatments.filter(e => e.id !== treatment_id)
+          current_treatments: current_treatments.map((e) => {
+            if (e.id === treatment_id) {
+              return {
+                ...omit('for_approval'),
+                rerate: true
+              }
+            }
+            return e
+          })
         })
       await this.DB.deleteById('request', params)
     } else if (type === 'EDIT_INHERENT_RISK') {
@@ -47,5 +50,26 @@ export default class RequestController {
       await this.DB.updateById('risk', { ...new_data, ...overrides })
     }
     return { success: true }
+  }
+
+  async createRequest({ params, user }) {
+    params.user_id = user.id
+    if (params.type === 'DONE_TREATMENT') {
+      const { treatment_details } = params
+      const risk = this.findBy('risk', params.risk_id)
+      const { current_treatments, future_treatments } = risk
+      const { id: treatment_id } = treatment_details
+      const new_treatment = future_treatments.find(e => e.id === treatment_id)
+      await this.DB.updateById('risk',
+        {
+          id: risk.id,
+          current_treatments: [
+            ...current_treatments,
+            new_treatment && { ...new_treatment, for_approval: true }
+          ].filter(Boolean),
+          future_treatments: future_treatments.filter(e => e.id !== treatment_id)
+        })
+    }
+    return this.DB.insert('request', params)
   }
 }
