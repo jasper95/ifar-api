@@ -3,6 +3,10 @@ const routes = {
     {
       url: '/request/accept',
       handler: 'acceptRequest'
+    },
+    {
+      url: '/request',
+      handler: 'createRequest'
     }
   ]
 }
