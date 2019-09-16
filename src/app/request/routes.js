@@ -8,6 +8,12 @@ const routes = {
       url: '/request',
       handler: 'createRequest'
     }
+  ],
+  del: [
+    {
+      url: '/request/:id',
+      handler: 'deleteRequest'
+    }
   ]
 }
 export default routes

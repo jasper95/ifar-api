@@ -72,4 +72,23 @@ export default class RequestController {
     }
     return this.DB.insert('request', params)
   }
+
+  async deleteRequest({ params }) {
+    const request = await this.DB.find('request', params.id)
+    if (request.type === 'DONE_TREATMENT_RISK') {
+      const { treatment_details } = request
+      const risk = await this.DB.find('risk', request.risk_id)
+      const { current_treatments, future_treatments } = risk
+      await this.DB.updateById('risk',
+        {
+          id: risk.id,
+          current_treatments: current_treatments.filter(e => e.id !== treatment_details.id),
+          future_treatments: [
+            ...future_treatments,
+            treatment_details
+          ]
+        })
+    }
+    return this.DB.deleteById('request', params)
+  }
 }
