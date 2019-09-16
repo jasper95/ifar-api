@@ -20,7 +20,10 @@ export default class RequestController {
       const risk = await this.DB.find('risk', risk_id)
       const { current_treatments } = risk
       const { id: treatment_id } = request.treatment_details
-      const recent_changes = Object.assign({}, risk.recent_changes, pick(risk_details.recent_changes, 'current_treatments', 'future_treatments'))
+      const recent_changes = Object
+        .assign({},
+          risk.recent_changes,
+          pick(risk_details ? risk_details.recent_changes : {}, 'current_treatments', 'future_treatments'))
       await this.DB.updateById('risk',
         {
           id: risk.id,
