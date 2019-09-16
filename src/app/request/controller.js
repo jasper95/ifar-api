@@ -56,7 +56,7 @@ export default class RequestController {
     params.user_id = user.id
     if (params.type === 'DONE_TREATMENT_RISK') {
       const { treatment_details } = params
-      const risk = this.findBy('risk', params.risk_id)
+      const risk = await this.DB.find('risk', params.risk_id)
       const { current_treatments, future_treatments } = risk
       const { id: treatment_id } = treatment_details
       const new_treatment = future_treatments.find(e => e.id === treatment_id)
