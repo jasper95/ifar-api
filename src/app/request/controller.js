@@ -54,7 +54,7 @@ export default class RequestController {
 
   async createRequest({ params, user }) {
     params.user_id = user.id
-    if (params.type === 'DONE_TREATMENT') {
+    if (params.type === 'DONE_TREATMENT_RISK') {
       const { treatment_details } = params
       const risk = this.findBy('risk', params.risk_id)
       const { current_treatments, future_treatments } = risk
