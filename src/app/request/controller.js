@@ -26,7 +26,7 @@ export default class RequestController {
           current_treatments: current_treatments.map((e) => {
             if (e.id === treatment_id) {
               return {
-                ...omit('for_approval'),
+                ...omit(e, 'for_approval'),
                 rerate: true
               }
             }
