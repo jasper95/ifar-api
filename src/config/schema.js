@@ -278,6 +278,11 @@ module.exports = {
           column_name: 'recent_changes',
           type: 'jsonb',
           default: '{}'
+        },
+        {
+          column_name: 'reason',
+          type: 'jsonb',
+          default: '{}'
         }
       ]
     },
