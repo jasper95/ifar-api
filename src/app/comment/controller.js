@@ -23,6 +23,10 @@ export default class CommentController {
 
     // TODO: transfer to sql query filter
     users = users.filter((e) => {
+      if (e.id === session.user_id) {
+        return false
+      }
+
       if (e.role !== 'ADMIN') {
         return e[`${risk_type}_business_units`].includes(risk.business_unit_id)
       }
