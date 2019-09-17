@@ -161,6 +161,14 @@ module.exports = {
           required: true
         },
         {
+          column_name: 'user_id',
+          type: 'uuid',
+          foreign_key: true,
+          required: true,
+          reference_table: 'user',
+          reference_column: 'id'
+        },
+        {
           column_name: 'type',
           type: 'string',
           default: 'srmp'
