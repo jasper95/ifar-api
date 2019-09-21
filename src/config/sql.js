@@ -63,6 +63,30 @@ export const views = [
       group by
         p.id
     `
+  },
+  {
+    name: 'operation_sub_operation',
+    query: `
+      SELECT o.*, count(so.operation_id) as sub_operation_count
+      from operation o
+      left join sub_operation so
+        on (so.operation_id = o.id)
+      group by
+        o.id
+    `
+  },
+  {
+    name: 'sub_operation_project',
+    query: `
+      SELECT so.*, count(p.sub_operation_id) as project_count, count(r.sub_operation_id) as risk_count
+      from sub_operation so
+      left join project p
+        on (p.sub_operation_id = so.id)
+      left join risk r
+        on (r.sub_operation_id = so.id)
+      group by
+        so.id
+    `
   }
 ]
 export const functions = [
