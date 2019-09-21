@@ -188,7 +188,7 @@ module.exports = {
           on_delete: 'CASCADE'
         },
         {
-          column_name: 'operation_id',
+          column_name: 'sub_operation_id',
           type: 'uuid'
         },
         {
@@ -406,7 +406,27 @@ module.exports = {
       ]
     },
     {
-      table_name: 'project',
+      table_name: 'operation',
+      columns: [
+        {
+          column_name: 'name',
+          type: 'string',
+          required: true
+        },
+        {
+          column_name: 'business_unit_id',
+          type: 'uuid',
+          required: true,
+          foreign_key: true,
+          reference_table: 'business_unit',
+          reference_column: 'id',
+          on_update: 'CASCADE',
+          on_delete: 'CASCADE'
+        }
+      ]
+    },
+    {
+      table_name: 'sub_operation',
       columns: [
         {
           column_name: 'name',
@@ -416,7 +436,32 @@ module.exports = {
         {
           column_name: 'operation_id',
           type: 'uuid',
+          required: true,
+          foreign_key: true,
+          reference_table: 'operation',
+          reference_column: 'id',
+          on_update: 'CASCADE',
+          on_delete: 'CASCADE'
+        }
+      ]
+    },
+    {
+      table_name: 'project',
+      columns: [
+        {
+          column_name: 'name',
+          type: 'string',
           required: true
+        },
+        {
+          column_name: 'sub_operation_id',
+          type: 'uuid',
+          required: true,
+          foreign_key: true,
+          reference_table: 'sub_operation',
+          reference_column: 'id',
+          on_update: 'CASCADE',
+          on_delete: 'CASCADE'
         }
       ]
     },
