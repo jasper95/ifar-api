@@ -31,7 +31,7 @@ module.exports = [
       order: 7
     }, {
       id: 'ac422fa3-e143-491a-ac01-a8a6093d6e6d',
-      name: 'INFRA',
+      name: 'DACF',
       order: 8
     }]
   },
