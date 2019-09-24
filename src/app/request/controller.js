@@ -23,7 +23,7 @@ export default class RequestController {
       const recent_changes = Object
         .assign({},
           risk.recent_changes,
-          pick(risk_details ? risk_details.recent_changes : {}, 'current_treatments', 'future_treatments'))
+          pick(risk_details.recent_changes || {}, 'current_treatments', 'future_treatments'))
       await this.DB.updateById('risk',
         {
           id: risk.id,
@@ -36,7 +36,8 @@ export default class RequestController {
               }
             }
             return e
-          })
+          }),
+          target_rating: risk.future_treatments.length > 0 ? risk.target_rating : 0
         })
       await this.DB.deleteById('request', params)
     } else if (type === 'EDIT_INHERENT_RISK') {
