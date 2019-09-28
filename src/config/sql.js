@@ -69,7 +69,7 @@ export const views = [
   {
     name: 'operation_sub_operation',
     query: `
-      SELECT o.*, count(so.operation_id) as sub_operation_count, 
+      SELECT o.*, count(so.operation_id) as sub_operation_count
       from operation o
       left join sub_operation so
         on (so.operation_id = o.id)
