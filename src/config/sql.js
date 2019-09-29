@@ -34,7 +34,9 @@ export const views = [
   {
     name: 'business_unit_ormp',
     query: `
-        SELECT b.*, count(r.business_unit_id) as risk_count, jsonb_strip_nulls(jsonb_agg(r.project_id)) as projects, jsonb_strip_nulls(jsonb_agg(r.sub_operation_id)) as sub_operations
+        SELECT b.*, count(r.business_unit_id) as risk_count,
+          COALESCE(jsonb_agg(r.project_id) FILTER (WHERE r.project_id IS NOT NULL), '[]') AS projects,
+          COALESCE(jsonb_agg(r.sub_operation_id) FILTER (WHERE r.sub_operation_id IS NOT NULL), '[]') AS sub_operations
         from business_unit b
         left join (select * from risk rr where rr."type" = 'ormp') r
           on (r.business_unit_id = b.id)
@@ -45,7 +47,9 @@ export const views = [
   {
     name: 'business_unit_prmp',
     query: `
-        SELECT b.*, count(r.business_unit_id) as risk_count, jsonb_strip_nulls(jsonb_agg(r.project_id)) as projects, jsonb_strip_nulls(jsonb_agg(r.sub_operation_id)) as sub_operations
+        SELECT b.*, count(r.business_unit_id) as risk_count,
+          COALESCE(jsonb_agg(r.project_id) FILTER (WHERE r.project_id IS NOT NULL), '[]') AS projects,
+          COALESCE(jsonb_agg(r.sub_operation_id) FILTER (WHERE r.sub_operation_id IS NOT NULL), '[]') AS sub_operations
         from business_unit b
         left join (select * from risk rr where rr."type" = 'prmp') r
           on (r.business_unit_id = b.id)
