@@ -81,6 +81,16 @@ module.exports = {
           column_name: 'prmp_business_units',
           type: 'jsonb',
           default: '[]'
+        },
+        {
+          column_name: 'sub_operations',
+          type: 'jsonb',
+          default: '[]'
+        },
+        {
+          column_name: 'projects',
+          type: 'jsonb',
+          default: '[]'
         }
       ]
     },
