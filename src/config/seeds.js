@@ -23,7 +23,7 @@ module.exports = [
       order: 5
     }, {
       id: 'eaea63b5-fb13-4cee-b328-3fcc76447cd7',
-      name: 'KAC',
+      name: 'CFL',
       order: 6
     }, {
       id: '94c28908-4f4c-4745-b283-1ee4bb3e5caf',
